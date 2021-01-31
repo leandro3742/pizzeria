@@ -1,0 +1,33 @@
+.home{
+    display: grid;
+    justify-content: center;
+}
+.home-titulo{
+    text-decoration: underline;
+    font-size: 18px;
+}
+.home-texto{
+    font-size: 15px;
+}
+.info{
+    background-color: rgba(61, 81, 58, .5);
+    text-align: center;
+    width: 95%;
+    margin-left: 2.5%;
+    margin-top: 250px;
+}
+.restaurante.cover{
+    object-fit: cover;
+}
+.restaurante{
+    width: 75%;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+@media only screen and (min-width: 426px){
+    
+} 
+
+@media only screen and (min-width: 781px){
+    
+} 

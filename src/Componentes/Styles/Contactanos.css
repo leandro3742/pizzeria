@@ -1,0 +1,107 @@
+.titulo-contactanos{
+    text-decoration: underline blue;
+    font-size: 21px;
+    margin-top: 25px;
+    text-align: center;
+    font-family: 'PT Serif', serif;
+}
+.formulario{
+    border-radius: 5px;
+    margin-top: 10px;
+    border: 2px solid black;
+    font-family: 'PT Serif', serif;
+    width: 90%;
+    margin-left: 5%;
+    display: grid;
+    justify-content: center;
+}
+.etiquetas{
+    text-align: center;
+}
+.etiquetas.primera{
+    margin-top: 10px;
+}
+.cuadros{
+    outline: none;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border-radius: 25px;
+}
+.descripcion{
+    height: 100px;
+    outline: none;
+    border-radius: 15px;
+}
+
+.submit{
+    color: white;
+    background-color: #4693AA;
+    font-family: 'PT Serif', serif;
+    height: 35px;
+    border-radius: 10px 20px 5px 25px;
+    margin: 30px 0 30px 0;
+}
+
+@media only screen and (min-width: 426px) and (max-width: 780px){
+    .formulario{
+        border: 0px;
+    }
+    .etiquetas{
+        font-size: 18px ;
+    }
+    .cuadros{
+        width: 300px;
+        height: 25px;
+    }
+}
+
+@media only screen and (min-width: 781px){
+    .titulo-contactanos{
+        text-decoration: underline blue;
+        font-size: 21px;
+        margin-top: 25px;
+        margin-left: 15px;
+        text-align: start;
+        font-family: 'PT Serif', serif;
+    }
+    .formulario{
+        width: 100%;
+        border: 0px;
+        grid-template-areas: "nombre descripcion"
+                             "numero descripcion"
+                             "boton boton";
+        grid-gap: 15px;
+    }
+    .container-form{
+        display: grid;
+        align-items: center;
+        justify-content: center;
+    }
+    .container-form.nombre{
+        margin-left: -200px;
+        grid-area: nombre;
+    }
+    .container-form.numero{
+        margin-top: 0px;
+        margin-left: -350px;
+        grid-area: numero;
+    }
+    .container-form.descripcion{
+        margin-top: 10px;
+        grid-area: descripcion;
+    }
+    .submit{
+        grid-area: boton;
+    }
+    .descripcion{
+        height: 150px;
+        width: 450px;
+    }
+    .etiquetas{
+        font-size: 21px ;
+    }
+    .cuadros{
+        width: 450px;
+        height: 25px;
+    }
+}
