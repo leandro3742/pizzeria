@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.68a354d3.chunk.css",
-    "main.js": "/static/js/main.fd5940c4.chunk.js",
-    "main.js.map": "/static/js/main.fd5940c4.chunk.js.map",
+    "main.css": "/static/css/main.f23c03c5.chunk.css",
+    "main.js": "/static/js/main.ea50f865.chunk.js",
+    "main.js.map": "/static/js/main.ea50f865.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.351d5ac1.js",
     "runtime-main.js.map": "/static/js/runtime-main.351d5ac1.js.map",
-    "static/js/2.20e6c6e7.chunk.js": "/static/js/2.20e6c6e7.chunk.js",
-    "static/js/2.20e6c6e7.chunk.js.map": "/static/js/2.20e6c6e7.chunk.js.map",
+    "static/js/2.417cfaf5.chunk.js": "/static/js/2.417cfaf5.chunk.js",
+    "static/js/2.417cfaf5.chunk.js.map": "/static/js/2.417cfaf5.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.68a354d3.chunk.css.map": "/static/css/main.68a354d3.chunk.css.map",
-    "static/js/2.20e6c6e7.chunk.js.LICENSE.txt": "/static/js/2.20e6c6e7.chunk.js.LICENSE.txt",
+    "static/css/main.f23c03c5.chunk.css.map": "/static/css/main.f23c03c5.chunk.css.map",
+    "static/js/2.417cfaf5.chunk.js.LICENSE.txt": "/static/js/2.417cfaf5.chunk.js.LICENSE.txt",
     "static/media/facebook.22d5e33c.svg": "/static/media/facebook.22d5e33c.svg",
     "static/media/hamburguesa.8d0b876f.jpg": "/static/media/hamburguesa.8d0b876f.jpg",
     "static/media/logo-pizza.b02089d9.png": "/static/media/logo-pizza.b02089d9.png",
@@ -23,8 +23,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.351d5ac1.js",
-    "static/js/2.20e6c6e7.chunk.js",
-    "static/css/main.68a354d3.chunk.css",
-    "static/js/main.fd5940c4.chunk.js"
+    "static/js/2.417cfaf5.chunk.js",
+    "static/css/main.f23c03c5.chunk.css",
+    "static/js/main.ea50f865.chunk.js"
   ]
 }
