@@ -1,0 +1,66 @@
+.pedido-imagen.cover{
+    object-fit: cover;
+}
+.pedido-imagen{
+    width: 150px;
+}
+.pedido-icono{
+    margin-left: 15px;
+    width: 50px;
+}
+.pedido-container{
+    margin-top: 50px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+.pedido-mini-container{
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.pedido-ocultar{
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: .5;
+}
+.sabores{
+    margin-top: 5px;
+    border-radius: 15px 5px 15px 5px;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, .5);
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+.elegir{
+    display: flex;
+    justify-content: center;
+}
+.si{
+    color: green;
+}
+.no{
+    margin-left: 15px;
+    color: red;
+}
+.pedido-titulo{
+    color: white;
+    font-size: 15px;
+}
+.pedido-texto{
+    font-size: 12px;
+}
+.lista{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.icono-ingredientes{
+    width: 15px;
+    margin-left: 15px;
+}
