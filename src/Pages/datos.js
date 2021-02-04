@@ -9,7 +9,7 @@ let ingredientes_pizza = {
 export const pizza = {
     nombre: 'pizza',
     img: img_pizza,
-    precio: 0,
+    precio: 250,
     ingredientes: ingredientes_pizza
 }
 

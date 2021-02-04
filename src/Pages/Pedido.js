@@ -16,7 +16,7 @@ class NUEVO_PRODUCTO{
     }
 }
 
-const PIZZA = new NUEVO_PRODUCTO("pedido-container", <div className="oculto"></div>, <div></div>, <div></div>, <div></div>);
+const PIZZA = new NUEVO_PRODUCTO("pedido-container", <div></div>, <div></div>, <div></div>, <div></div>);
 const BURGER = new NUEVO_PRODUCTO("pedido-container", <div></div>, <div></div>, <div></div>, <div></div>);
 
 let precio = 0;
@@ -25,13 +25,14 @@ let cantidad_de_ingredientes = 0;
 
 let cerrar_todo = <div></div>
 
+
 let producto = {
     nombre: '',
-    ingredientes: []
+    ingredientes: [],
 }
 
 let pedido = [];
-    
+
 
 function agregar_al_precio(nombre, arreglo){
     let ya_esta = false;
@@ -46,6 +47,7 @@ function agregar_al_precio(nombre, arreglo){
     }
     i = 0;
     if(ya_esta === false){
+
         switch (arreglo.nombre) {
             case 'pizza':
                 PIZZA.frase = <h2 className="frase">La pizza va con: </h2>    
@@ -59,13 +61,12 @@ function agregar_al_precio(nombre, arreglo){
         }
         while(nombre != arreglo.ingredientes.nombres[i])
             i++;
-
         producto.ingredientes[cantidad_de_ingredientes] = nombre;
         cantidad_de_ingredientes++;
         precio = precio + arreglo.ingredientes.precio[i];
         
-        especifico_producto.lista_de_compras = producto.ingredientes.map(lista_de_compras =>
-            <li className="lista_de_compras">{lista_de_compras}</li>
+        especifico_producto.lista_de_compras = producto.ingredientes.map(nombre =>
+            <li className="lista_de_compras">{nombre}</li>
         )
     }
     console.log(pedido);
@@ -98,6 +99,12 @@ function cerrar_opciones(){
     BURGER.clase = "pedido-container";
 
     cerrar_todo = <div></div>
+
+    pedido[cantidad_de_productos] = producto;
+    cantidad_de_productos++;
+    producto.nombre = '';
+    producto.ingredientes = [];
+
 }
 
 function expandir_lista(comida){
@@ -135,8 +142,8 @@ function agregar(comida){
                 <div className="sabores">
                     <h1 className="pedido-titulo">Le agregamos algún ingrediente extra?</h1>
                     <div className="elegir">
-                        <Link to="pedido"> <span onClick={()=>expandir_lista(comida)} className="si">Si</span> </Link>
-                        <Link to="pedido"> <span onClick={()=>cerrar_opciones()} className="no">No</span> </Link>
+                        <Link to="/pedido"> <span onClick={()=>expandir_lista(comida)} className="si">Si</span> </Link>
+                        <Link to="/pedido"> <span onClick={()=>cerrar_opciones()} className="no">No</span> </Link>
                     </div>
                 </div>
         break;
@@ -146,8 +153,8 @@ function agregar(comida){
                 <div className="sabores">
                     <h1 className="pedido-titulo">Le agregamos algún ingrediente extra?</h1>
                     <div className="elegir">
-                        <Link to="pedido"> <span onClick={()=>expandir_lista(comida)} className="si">Si</span> </Link>
-                        <Link to="pedido"> <span onClick={()=>cerrar_opciones()} className="no">No</span> </Link>
+                        <Link to="/pedido"> <span onClick={()=>expandir_lista(comida)} className="si">Si</span> </Link>
+                        <Link to="/pedido"> <span onClick={()=>cerrar_opciones()} className="no">No</span> </Link>
                     </div>
                 </div>
         break;
@@ -165,8 +172,7 @@ function agregar_precio_producto(precio_producto){
 
 function agregarle_sabores(comida, precio){
     producto.nombre = comida; //Agrego al array el producto y lo guardo
-    pedido[cantidad_de_productos] = producto;
-
+    // pedido[cantidad_de_productos] = producto;
     agregar_precio_producto(precio);
     switch (comida) {
         case "pizza":
@@ -194,7 +200,7 @@ export default class Pedido extends React.Component {
                 <div className={PIZZA.clase}>
                     <div className="pedido-mini-container">
                         <img className="pedido-imagen" src={pizza.img} alt=""/>
-                        <Link to="pedido"><img onClick={()=>agregarle_sabores(pizza.nombre, pizza.precio)} className="pedido-icono" src={add} alt=""/></Link>
+                        <Link to="/pedido"><img onClick={()=>agregarle_sabores(pizza.nombre, pizza.precio)} className="pedido-icono" src={add} alt=""/></Link>
                     </div>
                     {PIZZA.sabores}
                     {PIZZA.lista_sabores}
@@ -218,7 +224,8 @@ export default class Pedido extends React.Component {
 
                 <div className="precio">
                     <h1>Total: ${precio}</h1>
-                </div>              
+                </div> 
+
             </div>
         );
     }
