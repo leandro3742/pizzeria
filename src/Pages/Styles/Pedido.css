@@ -9,7 +9,7 @@
     width: 50px;
 }
 .pedido-container{
-    margin-top: 50px;
+    /* margin-top: 50px; */
     display: grid;
     justify-content: center;
     align-items: center;
@@ -22,7 +22,7 @@
 }
 .pedido-ocultar{
     margin-top: 50px;
-    display: flex;
+    display: grid;
     justify-content: center;
     align-items: center;
     opacity: .5;
@@ -63,4 +63,21 @@
 .icono-ingredientes{
     width: 15px;
     margin-left: 15px;
+}
+.lista_de_compras{
+    display: flex;
+    justify-content: center;
+}
+.frase{
+    font-size: 15px;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: center;
+}
+.precio{
+    display: flex;
+    justify-content: center;
+}
+.oculto{
+    opacity: 0.0;
 }

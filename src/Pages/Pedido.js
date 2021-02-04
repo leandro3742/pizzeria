@@ -1,30 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; 
 import './Styles/Pedido.css';
-import pizza from '../Imagenes/pizza.jpg';
-import burger from '../Imagenes/hamburguesa.jpg';
-import pasta from '../Imagenes/pasta.jpg';
-import postre from '../Imagenes/postre.jpg';
+
+import { pizza, burger } from './datos';
 import add from '../Imagenes/iconos/add.png';
 
-let clase_pizza = "pedido-container";
-let clase_burger = "pedido-container";
-let clase_pasta = "pedido-container";
-let clase_postre = "pedido-container";
 
-let sabores_pizza = <div></div>
-let sabores_burger = <div></div>
-let sabores_pasta = <div></div>
-let sabores_postre = <div></div>
+class NUEVO_PRODUCTO{
+    constructor(clase, sabores, lista_sabores, frase, lista_de_compras){
+        this.clase = clase;
+        this.sabores = sabores;
+        this.lista_sabores = lista_sabores;
+        this.frase = frase;
+        this.lista_de_compras = lista_de_compras
+    }
+}
 
-let lista_sabores_pizza = <div></div>
-let lista_sabores_burger = <div></div>
-let lista_sabores_pasta = <div></div>
-let lista_sabores_postre = <div></div>
+const PIZZA = new NUEVO_PRODUCTO("pedido-container", <div className="oculto"></div>, <div></div>, <div></div>, <div></div>);
+const BURGER = new NUEVO_PRODUCTO("pedido-container", <div></div>, <div></div>, <div></div>, <div></div>);
 
 let precio = 0;
 let cantidad_de_productos = 0;
 let cantidad_de_ingredientes = 0;
+
+let cerrar_todo = <div></div>
 
 let producto = {
     nombre: '',
@@ -34,107 +33,105 @@ let producto = {
 let pedido = [];
     
 
-
-
-function agregar_al_precio(valor, nombre){
-    // console.log(pedido);
+function agregar_al_precio(nombre, arreglo){
     let ya_esta = false;
     let i = 0;
+    let especifico_producto;
+
     while(i < cantidad_de_ingredientes){
         if(producto.ingredientes[i] === nombre ){
             ya_esta = true;
         }
         i++;
     }
-
+    i = 0;
     if(ya_esta === false){
+        switch (arreglo.nombre) {
+            case 'pizza':
+                PIZZA.frase = <h2 className="frase">La pizza va con: </h2>    
+                especifico_producto = PIZZA;
+                break;
+            case 'burger':
+                BURGER.frase = <h2 className="frase">La burger va con: </h2>    
+                especifico_producto = BURGER;
+                break;
+                
+        }
+        while(nombre != arreglo.ingredientes.nombres[i])
+            i++;
+
         producto.ingredientes[cantidad_de_ingredientes] = nombre;
         cantidad_de_ingredientes++;
-        precio = precio + valor;
+        precio = precio + arreglo.ingredientes.precio[i];
+        
+        especifico_producto.lista_de_compras = producto.ingredientes.map(lista_de_compras =>
+            <li className="lista_de_compras">{lista_de_compras}</li>
+        )
     }
     console.log(pedido);
 }
 
-function quitar_al_precio(valor, nombre){
-    let i = 0;
-    let pivot;
-    while(i < cantidad_de_ingredientes){
-        if(producto.ingredientes[i] === nombre ){
-            pivot = i;
-            producto.ingredientes[i] = '';
-            precio = precio - valor;
-        }
-        i++;
+function quitar_al_precio(nombre, arreglo){
+    let i = producto.ingredientes.indexOf(nombre);
+    if (i != -1){
+        producto.ingredientes.splice(i, 1);
+        while( (nombre != arreglo.ingredientes.nombres[i])  )
+            i++;
+        precio = precio - arreglo.ingredientes.precio[i];
+        cantidad_de_ingredientes--;
     }
-    i = pivot;
-    while( i < cantidad_de_ingredientes){
-        producto.ingredientes[i] = producto.ingredientes[i+1];
-        i++;
-    }
-    cantidad_de_ingredientes--;
-    console.log(pedido);
 }
-
 
 function cerrar_opciones(){
     cantidad_de_productos++; //Avanzo un casillero asi no piso nungun producto
 
     // Cierro todas las opciones de agregar sabores
-    sabores_pizza = <div></div>
-    sabores_burger = <div></div>
-    sabores_pasta = <div></div>
-    sabores_postre = <div></div>
-    
+    PIZZA.sabores = <div></div>
+    BURGER.sabores = <div></div>
+
     //Cierro la lista de sabores
-    lista_sabores_pizza = <div></div>
-    lista_sabores_burger = <div></div>
-    lista_sabores_pasta = <div></div>
-    lista_sabores_postre = <div></div>
-    
+    PIZZA.lista_sabores = <div></div>
+    BURGER.lista_sabores = <div></div>
+
     //Hago que todas las opciones sean visibles
-    clase_pizza = "pedido-container";
-    clase_burger = "pedido-container";
-    clase_pasta = "pedido-container";
-    clase_postre = "pedido-container";
+    PIZZA.clase = "pedido-container";
+    BURGER.clase = "pedido-container";
+
+    cerrar_todo = <div></div>
 }
 
 function expandir_lista(comida){
+    switch (comida) {
+        case "pizza":
+            PIZZA.lista_sabores = pizza.ingredientes.nombres.map(lista_sabores =>
+                <div className="lista">
+                    <div className="bacon">
+                        <span className="ingredientes">{lista_sabores}</span> 
+                        <Link to="/pedido"> <img onClick={()=>quitar_al_precio(lista_sabores, pizza)} className="icono-ingredientes" src={add} alt=""/> </Link>
+                        <Link to="/pedido"> <img onClick={()=>agregar_al_precio(lista_sabores, pizza)} className="icono-ingredientes" src={add} alt=""/> </Link>
+                    </div>  
+                </div>)
+            cerrar_todo = <Link to="/pedido"> <button onClick={()=>cerrar_opciones()}> Seguir comprando </button> </Link>
+        break;
 
-    if(comida === "pizza"){
-        lista_sabores_pizza = 
-            <div className="lista">
-                <div className="bacon">
-                    <span className="ingredientes">Bacon</span> 
-                    <Link to="/pedido"> <img onClick={()=>quitar_al_precio(40, "bacon")} className="icono-ingredientes" src={add} alt=""/> </Link>
-                    <Link to="/pedido"> <img onClick={()=>agregar_al_precio(40, "bacon")} className="icono-ingredientes" src={add} alt=""/> </Link>
-                </div>
-
-                <div>
-                    <span className="ingredientes">Extra queso</span>
-                    <Link to="/pedido"> <img onClick={()=>quitar_al_precio(40, "extra_queso")} className="icono-ingredientes" src={add} alt=""/> </Link>
-                    <Link to="/pedido"> <img onClick={()=>agregar_al_precio(40, "extra_queso")} className="icono-ingredientes" src={add} alt=""/> </Link>
-                </div>
-                
-                <div>
-                    <span onClick={()=>agregar_al_precio(40, "aceitunas")} className="ingredientes">Aceitunas</span>
-                    <Link to="/pedido"> <img onClick={()=>quitar_al_precio(40, "aceitunas")} className="icono-ingredientes" src={add} alt=""/> </Link>
-                    <Link to="/pedido"> <img onClick={()=>agregar_al_precio(40, "aceitunas")} className="icono-ingredientes" src={add} alt=""/> </Link>
-                </div>
-                
-                <div>
-                    <span onClick={()=>agregar_al_precio(40, "huevos")} className="ingredientes">Huevos</span>
-                    <Link to="/pedido"> <img onClick={()=>quitar_al_precio(40, "huevos")} className="icono-ingredientes" src={add} alt=""/> </Link>
-                    <Link to="/pedido"> <img onClick={()=>agregar_al_precio(40, "huevos")} className="icono-ingredientes" src={add} alt=""/> </Link>
-                </div>
-                <Link to="/pedido"> <button onClick={()=>cerrar_opciones()}>Seguir comprando</button> </Link>
-            </div>
+        case "burger":
+            BURGER.lista_sabores = burger.ingredientes.nombres.map(lista_sabores =>
+                <div className="lista">
+                    <div className="bacon">
+                        <span className="ingredientes">{lista_sabores}</span> 
+                        <Link to="/pedido"> <img onClick={()=>quitar_al_precio(lista_sabores, burger)} className="icono-ingredientes" src={add} alt=""/> </Link>
+                        <Link to="/pedido"> <img onClick={()=>agregar_al_precio(lista_sabores, burger)} className="icono-ingredientes" src={add} alt=""/> </Link>
+                    </div>  
+                </div>)
+            cerrar_todo = <Link to="/pedido"> <button onClick={()=>cerrar_opciones()}> Seguir comprando </button> </Link>
+        break;
     }
 }
 
 function agregar(comida){
     switch (comida) {
         case "pizza":
-            sabores_pizza = 
+            PIZZA.sabores = 
                 <div className="sabores">
                     <h1 className="pedido-titulo">Le agregamos algún ingrediente extra?</h1>
                     <div className="elegir">
@@ -145,7 +142,7 @@ function agregar(comida){
         break;
         
         case "burger":
-            sabores_burger = 
+            BURGER.sabores = 
                 <div className="sabores">
                     <h1 className="pedido-titulo">Le agregamos algún ingrediente extra?</h1>
                     <div className="elegir">
@@ -154,69 +151,32 @@ function agregar(comida){
                     </div>
                 </div>
         break;
-        
-        case "pasta":
-            sabores_pasta = 
-                <div className="sabores">
-                    <h1 className="pedido-titulo">Le agregamos algún ingrediente extra?</h1>
-                    <div className="elegir">
-                        <Link to="pedido"> <span onClick={()=>expandir_lista(comida)} className="si">Si</span> </Link>
-                        <Link to="pedido"> <span onClick={()=>cerrar_opciones()} className="no">No</span> </Link>
-                    </div>
-                </div>
-        break;
-        
-        case "postre":
-            sabores_postre = 
-                <div className="sabores">
-                    <h1 className="pedido-titulo">Le agregamos algún ingrediente extra?</h1>
-                    <div className="elegir">
-                        <Link to="pedido"> <span onClick={()=>expandir_lista(comida)} className="si">Si</span> </Link>
-                        <Link to="pedido"> <span onClick={()=>cerrar_opciones()} className="no">No</span> </Link>
-                    </div>
-                </div>
-        break;
-    
-        
-    }
-    if (comida === "pizza"){
         
     }
 }
 
+
+/* ESTA FUNCION SOLO SIRVE PARA AGREGAR LOS PRODUCTOS AL PRECIO TOTAL*/ 
+function agregar_precio_producto(precio_producto){
+    precio = precio+precio_producto; 
+
+}
+
+
 function agregarle_sabores(comida, precio){
-    
     producto.nombre = comida; //Agrego al array el producto y lo guardo
     pedido[cantidad_de_productos] = producto;
 
-    agregar_al_precio(precio);
+    agregar_precio_producto(precio);
     switch (comida) {
         case "pizza":
-            clase_pizza = "pedido-container";
-            clase_burger = "pedido-ocultar";
-            clase_pasta = "pedido-ocultar";
-            clase_postre = "pedido-ocultar";
+            PIZZA.clase = "pedido-container";
+            BURGER.clase = "pedido-ocultar";
             agregar(comida);             
         break;
         case "burger":
-            clase_pizza = "pedido-ocultar";
-            clase_burger = "pedido-container";
-            clase_pasta = "pedido-ocultar";
-            clase_postre = "pedido-ocultar";
-            agregar(comida);            
-        break;
-        case "pasta":
-            clase_pizza = "pedido-ocultar";
-            clase_burger = "pedido-ocultar";
-            clase_pasta = "pedido-container";
-            clase_postre = "pedido-ocultar";
-            agregar(comida);            
-        break;
-        case "postre":
-            clase_pizza = "pedido-ocultar";
-            clase_burger = "pedido-ocultar";
-            clase_pasta = "pedido-ocultar";
-            clase_postre = "pedido-container";
+            PIZZA.clase = "pedido-ocultar";
+            BURGER.clase = "pedido-container";
             agregar(comida);            
         break;
     }
@@ -224,44 +184,37 @@ function agregarle_sabores(comida, precio){
 
 
 export default class Pedido extends React.Component {
+    
     render(){
         return(
             <div className="pedido">
-                <div className={clase_pizza}>
+                <div className="precio">
+                    <h1>Total: ${precio}</h1>
+                </div>
+                <div className={PIZZA.clase}>
                     <div className="pedido-mini-container">
-                        <img className="pedido-imagen" src={pizza} alt=""/>
-                        <Link to="pedido"><img onClick={()=>agregarle_sabores("pizza", 250)} className="pedido-icono" src={add} alt=""/></Link>
+                        <img className="pedido-imagen" src={pizza.img} alt=""/>
+                        <Link to="pedido"><img onClick={()=>agregarle_sabores(pizza.nombre, pizza.precio)} className="pedido-icono" src={add} alt=""/></Link>
                     </div>
-                    {sabores_pizza}
-                    {lista_sabores_pizza}
+                    {PIZZA.sabores}
+                    {PIZZA.lista_sabores}
+                    {PIZZA.frase}
+                    {PIZZA.lista_de_compras}
+                    {cerrar_todo}
                 </div>                
 
-                <div className={clase_burger}>
+                <div className={BURGER.clase}>
                     <div className="pedido-mini-container">
-                        <img className="pedido-imagen" src={burger} alt=""/>
-                        <Link to="pedido"><img onClick={()=>agregarle_sabores("burger", 200)} className="pedido-icono" src={add} alt=""/></Link>
+                        <img className="pedido-imagen" src={burger.img} alt=""/>
+                        <Link to="pedido"><img onClick={()=>agregarle_sabores(burger.nombre, burger.precio)} className="pedido-icono" src={add} alt=""/></Link>
                     </div>
-                    {sabores_burger}
-                    {lista_sabores_burger}
-                </div>                
+                    {BURGER.sabores}
+                    {BURGER.lista_sabores}
+                    {BURGER.frase}
+                    {BURGER.lista_de_compras}
+                    {cerrar_todo}
+                </div>              
                 
-                <div className={clase_pasta}>
-                    <div className="pedido-mini-container">
-                        <img className="pedido-imagen" src={pasta} alt=""/>
-                        <img className="pedido-icono" src={add} alt=""/>
-                    </div>
-                    {sabores_pasta}
-                    {lista_sabores_pasta}
-                </div>                
-                
-                <div className={clase_postre}>
-                    <div className="pedido-mini-container">
-                        <img className="pedido-imagen" src={postre} alt=""/>
-                        <img className="pedido-icono" src={add} alt=""/>
-                    </div>
-                    {sabores_postre}
-                    {lista_sabores_postre}
-                </div>  
 
                 <div className="precio">
                     <h1>Total: ${precio}</h1>
