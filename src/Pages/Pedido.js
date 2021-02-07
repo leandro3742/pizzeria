@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; 
 import './Styles/Pedido.css';
+import Swal from 'sweetalert2';
 
 import { pizza, burger } from './datos';
 import add from '../Imagenes/iconos/add.png';
-
 
 class NUEVO_PRODUCTO{
     constructor(clase, sabores, lista_sabores, frase, lista_de_compras){
@@ -32,7 +32,7 @@ let producto = {
 }
 
 let pedido = [];
-
+let pedido_con_ingredientes = [];
 
 function agregar_al_precio(nombre, arreglo){
     let ya_esta = false;
@@ -69,7 +69,6 @@ function agregar_al_precio(nombre, arreglo){
             <li className="lista_de_compras">{nombre}</li>
         )
     }
-    console.log(pedido);
 }
 
 function quitar_al_precio(nombre, arreglo){
@@ -85,7 +84,6 @@ function quitar_al_precio(nombre, arreglo){
 
 function cerrar_opciones(){
     cantidad_de_productos++; //Avanzo un casillero asi no piso nungun producto
-
     // Cierro todas las opciones de agregar sabores
     PIZZA.sabores = <div></div>
     BURGER.sabores = <div></div>
@@ -100,8 +98,9 @@ function cerrar_opciones(){
 
     cerrar_todo = <div></div>
 
-    pedido[cantidad_de_productos] = producto;
-    cantidad_de_productos++;
+    pedido[cantidad_de_productos] = producto.nombre;
+    pedido_con_ingredientes[cantidad_de_productos] = producto.ingredientes;
+   
     producto.nombre = '';
     producto.ingredientes = [];
 
@@ -118,7 +117,7 @@ function expandir_lista(comida){
                         <Link to="/pedido"> <img onClick={()=>agregar_al_precio(lista_sabores, pizza)} className="icono-ingredientes" src={add} alt=""/> </Link>
                     </div>  
                 </div>)
-            cerrar_todo = <Link to="/pedido"> <button onClick={()=>cerrar_opciones()}> Seguir comprando </button> </Link>
+            cerrar_todo = <Link to="/pedido" className="boton"> <button className="boton-a" onClick={()=>cerrar_opciones()}> Seguir comprando </button> </Link>
         break;
 
         case "burger":
@@ -130,7 +129,7 @@ function expandir_lista(comida){
                         <Link to="/pedido"> <img onClick={()=>agregar_al_precio(lista_sabores, burger)} className="icono-ingredientes" src={add} alt=""/> </Link>
                     </div>  
                 </div>)
-            cerrar_todo = <Link to="/pedido"> <button onClick={()=>cerrar_opciones()}> Seguir comprando </button> </Link>
+            cerrar_todo = <Link to="/pedido" className="boton"> <button className="boton-a" onClick={()=>cerrar_opciones()}> Seguir comprando </button> </Link>
         break;
     }
 }
@@ -165,13 +164,13 @@ function agregar(comida){
 
 /* ESTA FUNCION SOLO SIRVE PARA AGREGAR LOS PRODUCTOS AL PRECIO TOTAL*/ 
 function agregar_precio_producto(precio_producto){
-    precio = precio+precio_producto; 
-
+    precio = precio+precio_producto;
 }
 
 
 function agregarle_sabores(comida, precio){
     producto.nombre = comida; //Agrego al array el producto y lo guardo
+    console.log("AA"+producto.nombre);
     // pedido[cantidad_de_productos] = producto;
     agregar_precio_producto(precio);
     switch (comida) {
@@ -188,15 +187,35 @@ function agregarle_sabores(comida, precio){
     }
 }
 
+function mostrar_pedido(){ 
+    Swal.fire({
+        title: 'Confirmar compra',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: `Si`,
+        denyButtonText: `No`,
+    }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            // enivar mensaje aca
+            Swal.fire('Pedido enviado con exito', '', 'success')
+        } else if (result.isDenied) {
+            Swal.fire('Changes are not saved', '', 'info')
+        }
+    })
+    while(cantidad_de_productos > 0){
+        console.log('pedido'+ cantidad_de_productos + " " + pedido[cantidad_de_productos]);
+        console.log('ingredientes: ' + pedido_con_ingredientes[cantidad_de_productos]);
+
+        cantidad_de_productos--;
+    }
+}
 
 export default class Pedido extends React.Component {
     
     render(){
         return(
             <div className="pedido">
-                <div className="precio">
-                    <h1>Total: ${precio}</h1>
-                </div>
                 <div className={PIZZA.clase}>
                     <div className="pedido-mini-container">
                         <img className="pedido-imagen" src={pizza.img} alt=""/>
@@ -225,6 +244,8 @@ export default class Pedido extends React.Component {
                 <div className="precio">
                     <h1>Total: ${precio}</h1>
                 </div> 
+
+                <Link className="boton" to="/pedido" onClick={()=>mostrar_pedido()}> <button className="boton-a" >Enviar pedido</button></Link>
 
             </div>
         );
