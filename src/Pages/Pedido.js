@@ -98,7 +98,7 @@ function cerrar_opciones(){
 
     cerrar_todo = <div></div>
 
-    pedido[cantidad_de_productos] = producto.nombre;
+    pedido[cantidad_de_productos]= producto.nombre;
     pedido_con_ingredientes[cantidad_de_productos] = producto.ingredientes;
    
     producto.nombre = '';
@@ -169,6 +169,8 @@ function agregar_precio_producto(precio_producto){
 
 
 function agregarle_sabores(comida, precio){
+    
+
     producto.nombre = comida; //Agrego al array el producto y lo guardo
     console.log("AA"+producto.nombre);
     // pedido[cantidad_de_productos] = producto;
@@ -187,38 +189,55 @@ function agregarle_sabores(comida, precio){
     }
 }
 
+let listar_pedido;
 function mostrar_pedido(){ 
-    Swal.fire({
-        title: 'Confirmar compra',
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: `Si`,
-        denyButtonText: `No`,
-    }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-            // enivar mensaje aca
-            Swal.fire('Pedido enviado con exito', '', 'success')
-        } else if (result.isDenied) {
-            Swal.fire('Changes are not saved', '', 'info')
-        }
-    })
+    listar_pedido = pedido.map(nombre=>
+        <div>
+            <h3>{nombre}</h3>
+            <img src={add}/>
+        </div>)
     while(cantidad_de_productos > 0){
         console.log('pedido'+ cantidad_de_productos + " " + pedido[cantidad_de_productos]);
         console.log('ingredientes: ' + pedido_con_ingredientes[cantidad_de_productos]);
 
         cantidad_de_productos--;
     }
+    
+    // Swal.fire({
+    //     title: 'Confirmar compra',
+    //     showDenyButton: true,
+    //     showCancelButton: true,
+    //     confirmButtonText: `Si`,
+    //     denyButtonText: `No`,
+    // }).then((result) => {
+    //     /* Read more about isConfirmed, isDenied below */
+    //     if (result.isConfirmed) {
+    //         // enivar mensaje aca
+    //         Swal.fire('Pedido enviado con exito', '', 'success')
+    //     } else if (result.isDenied) {
+    //         // eliminar_productos();
+    //     }
+    // })
+    
 }
 
+function eliminar_producto(nombre, precio_producto){
+    if(cantidad_de_productos > 0){
+        let i = pedido.indexOf(nombre);
+        if (i != -1){
+            pedido.splice(i, 1);
+            precio = precio - precio_producto;
+        }
+    }  
+}
 export default class Pedido extends React.Component {
-    
     render(){
         return(
             <div className="pedido">
                 <div className={PIZZA.clase}>
                     <div className="pedido-mini-container">
                         <img className="pedido-imagen" src={pizza.img} alt=""/>
+                        <Link to="/pedido"><img onClick={()=>eliminar_producto(pizza.nombre, pizza.precio)} className="pedido-icono" src={add} alt=""/></Link>
                         <Link to="/pedido"><img onClick={()=>agregarle_sabores(pizza.nombre, pizza.precio)} className="pedido-icono" src={add} alt=""/></Link>
                     </div>
                     {PIZZA.sabores}
@@ -231,6 +250,7 @@ export default class Pedido extends React.Component {
                 <div className={BURGER.clase}>
                     <div className="pedido-mini-container">
                         <img className="pedido-imagen" src={burger.img} alt=""/>
+                        <Link to="pedido"><img onClick={()=>eliminar_producto(burger.nombre, burger.precio)} className="pedido-icono" src={add} alt=""/></Link>
                         <Link to="pedido"><img onClick={()=>agregarle_sabores(burger.nombre, burger.precio)} className="pedido-icono" src={add} alt=""/></Link>
                     </div>
                     {BURGER.sabores}
@@ -243,10 +263,10 @@ export default class Pedido extends React.Component {
 
                 <div className="precio">
                     <h1>Total: ${precio}</h1>
-                </div> 
-
+                </div>
+                {listar_pedido} 
                 <Link className="boton" to="/pedido" onClick={()=>mostrar_pedido()}> <button className="boton-a" >Enviar pedido</button></Link>
-
+            
             </div>
         );
     }
