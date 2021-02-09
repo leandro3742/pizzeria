@@ -198,8 +198,8 @@ function agregarle_sabores(comida, precio){
 let listar_pedido;
 
 function mostrar_pedido(){ 
-    
-    boton_final = <Link className="boton" to="/pedido" onClick={()=>enviar_pedido()}> <button className="boton-a" >Finalizar pedido</button></Link>
+
+    boton_final = <Link className="boton" to="/pedido" onClick={()=>enviar_pedido()}> <button className="boton-a" >Finalizar pedido</button> </Link>
 
     let a = 0;
     let i = 1;
@@ -216,12 +216,6 @@ function mostrar_pedido(){
             <span className="listar_pedido-nombre">{nombre}</span>
         </div>)
 
-    while(cantidad_de_productos > 0){
-        console.log('pedido'+ cantidad_de_productos + " " + pedido[cantidad_de_productos]);
-        console.log('ingredientes: ' + pedido_con_ingredientes[cantidad_de_productos]);
-
-        cantidad_de_productos--;
-    }
 }
 
 function enviar_pedido(){
@@ -235,7 +229,10 @@ function enviar_pedido(){
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
             // enivar mensaje aca
-            Swal.fire('Pedido enviado con exito', '', 'success')
+            Swal.fire({
+                title: 'Pedido enviado con exito',
+                icon: 'success',
+            })
         } else if (result.isDenied) {
             // eliminar_productos();
         }
@@ -246,6 +243,7 @@ export default class Pedido extends React.Component {
     render(){
         return(
             <div className="pedido">
+                <a href="/pedido"> <button className="nuevo_pedido">Iniciar nuevo pedido</button> </a>
                 <div className={PIZZA.clase}>
                     <div className="pedido-mini-container">
                         <img className="pedido-imagen" src={pizza.img} alt=""/>
