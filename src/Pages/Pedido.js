@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 
 import { pizza, burger } from './datos';
 import add from '../Imagenes/iconos/add.png';
+import less from '../Imagenes/iconos/less.png';
 
 class NUEVO_PRODUCTO{
     constructor(clase, sabores, lista_sabores, frase, lista_de_compras){
@@ -33,12 +34,15 @@ let producto = {
 
 let pedido = [];
 let pedido_con_ingredientes = [];
+let pedido_precio = [];
+
+let boton_final = <Link className="boton" to="/pedido" onClick={()=>mostrar_pedido()}> <button className="boton-a" >Ver pedido</button></Link>
 
 function agregar_al_precio(nombre, arreglo){
     let ya_esta = false;
     let i = 0;
     let especifico_producto;
-
+    
     while(i < cantidad_de_ingredientes){
         if(producto.ingredientes[i] === nombre ){
             ya_esta = true;
@@ -49,11 +53,11 @@ function agregar_al_precio(nombre, arreglo){
     if(ya_esta === false){
 
         switch (arreglo.nombre) {
-            case 'pizza':
+            case 'Pizza':
                 PIZZA.frase = <h2 className="frase">La pizza va con: </h2>    
                 especifico_producto = PIZZA;
                 break;
-            case 'burger':
+            case 'Burger':
                 BURGER.frase = <h2 className="frase">La burger va con: </h2>    
                 especifico_producto = BURGER;
                 break;
@@ -64,6 +68,8 @@ function agregar_al_precio(nombre, arreglo){
         producto.ingredientes[cantidad_de_ingredientes] = nombre;
         cantidad_de_ingredientes++;
         precio = precio + arreglo.ingredientes.precio[i];
+        
+        pedido_precio[cantidad_de_productos] = precio;
         
         especifico_producto.lista_de_compras = producto.ingredientes.map(nombre =>
             <li className="lista_de_compras">{nombre}</li>
@@ -108,24 +114,24 @@ function cerrar_opciones(){
 
 function expandir_lista(comida){
     switch (comida) {
-        case "pizza":
+        case "Pizza":
             PIZZA.lista_sabores = pizza.ingredientes.nombres.map(lista_sabores =>
                 <div className="lista">
                     <div className="bacon">
                         <span className="ingredientes">{lista_sabores}</span> 
-                        <Link to="/pedido"> <img onClick={()=>quitar_al_precio(lista_sabores, pizza)} className="icono-ingredientes" src={add} alt=""/> </Link>
+                        <Link to="/pedido"> <img onClick={()=>quitar_al_precio(lista_sabores, pizza)} className="icono-ingredientes" src={less} alt=""/> </Link>
                         <Link to="/pedido"> <img onClick={()=>agregar_al_precio(lista_sabores, pizza)} className="icono-ingredientes" src={add} alt=""/> </Link>
                     </div>  
                 </div>)
             cerrar_todo = <Link to="/pedido" className="boton"> <button className="boton-a" onClick={()=>cerrar_opciones()}> Seguir comprando </button> </Link>
         break;
 
-        case "burger":
+        case "Burger":
             BURGER.lista_sabores = burger.ingredientes.nombres.map(lista_sabores =>
                 <div className="lista">
                     <div className="bacon">
                         <span className="ingredientes">{lista_sabores}</span> 
-                        <Link to="/pedido"> <img onClick={()=>quitar_al_precio(lista_sabores, burger)} className="icono-ingredientes" src={add} alt=""/> </Link>
+                        <Link to="/pedido"> <img onClick={()=>quitar_al_precio(lista_sabores, burger)} className="icono-ingredientes" src={less} alt=""/> </Link>
                         <Link to="/pedido"> <img onClick={()=>agregar_al_precio(lista_sabores, burger)} className="icono-ingredientes" src={add} alt=""/> </Link>
                     </div>  
                 </div>)
@@ -136,7 +142,7 @@ function expandir_lista(comida){
 
 function agregar(comida){
     switch (comida) {
-        case "pizza":
+        case "Pizza":
             PIZZA.sabores = 
                 <div className="sabores">
                     <h1 className="pedido-titulo">Le agregamos algún ingrediente extra?</h1>
@@ -147,7 +153,7 @@ function agregar(comida){
                 </div>
         break;
         
-        case "burger":
+        case "Burger":
             BURGER.sabores = 
                 <div className="sabores">
                     <h1 className="pedido-titulo">Le agregamos algún ingrediente extra?</h1>
@@ -165,23 +171,23 @@ function agregar(comida){
 /* ESTA FUNCION SOLO SIRVE PARA AGREGAR LOS PRODUCTOS AL PRECIO TOTAL*/ 
 function agregar_precio_producto(precio_producto){
     precio = precio+precio_producto;
+    pedido_precio[cantidad_de_productos] = precio_producto;
 }
 
 
 function agregarle_sabores(comida, precio){
     
-
     producto.nombre = comida; //Agrego al array el producto y lo guardo
     console.log("AA"+producto.nombre);
     // pedido[cantidad_de_productos] = producto;
     agregar_precio_producto(precio);
     switch (comida) {
-        case "pizza":
+        case "Pizza":
             PIZZA.clase = "pedido-container";
             BURGER.clase = "pedido-ocultar";
             agregar(comida);             
         break;
-        case "burger":
+        case "Burger":
             PIZZA.clase = "pedido-ocultar";
             BURGER.clase = "pedido-container";
             agregar(comida);            
@@ -190,46 +196,52 @@ function agregarle_sabores(comida, precio){
 }
 
 let listar_pedido;
+
 function mostrar_pedido(){ 
-    listar_pedido = pedido.map(nombre=>
-        <div>
-            <h3>{nombre}</h3>
-            <img src={add}/>
+    
+    boton_final = <Link className="boton" to="/pedido" onClick={()=>enviar_pedido()}> <button className="boton-a" >Finalizar pedido</button></Link>
+
+    let a = 0;
+    let i = 1;
+    let pedido_para_mostrar = [];
+
+    while(i <= cantidad_de_productos){
+        pedido_para_mostrar[a] = pedido[i]+" con: ";
+        pedido_para_mostrar[a+1] = pedido_con_ingredientes[i];
+        i++;
+        a = a+2;
+    }
+    listar_pedido = pedido_para_mostrar.map(nombre=>
+        <div className="listar_pedido">
+            <span className="listar_pedido-nombre">{nombre}</span>
         </div>)
+
     while(cantidad_de_productos > 0){
         console.log('pedido'+ cantidad_de_productos + " " + pedido[cantidad_de_productos]);
         console.log('ingredientes: ' + pedido_con_ingredientes[cantidad_de_productos]);
 
         cantidad_de_productos--;
     }
-    
-    // Swal.fire({
-    //     title: 'Confirmar compra',
-    //     showDenyButton: true,
-    //     showCancelButton: true,
-    //     confirmButtonText: `Si`,
-    //     denyButtonText: `No`,
-    // }).then((result) => {
-    //     /* Read more about isConfirmed, isDenied below */
-    //     if (result.isConfirmed) {
-    //         // enivar mensaje aca
-    //         Swal.fire('Pedido enviado con exito', '', 'success')
-    //     } else if (result.isDenied) {
-    //         // eliminar_productos();
-    //     }
-    // })
-    
 }
 
-function eliminar_producto(nombre, precio_producto){
-    if(cantidad_de_productos > 0){
-        let i = pedido.indexOf(nombre);
-        if (i != -1){
-            pedido.splice(i, 1);
-            precio = precio - precio_producto;
+function enviar_pedido(){
+    Swal.fire({
+        title: 'Confirmar compra',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: `Si`,
+        denyButtonText: `No`,
+    }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            // enivar mensaje aca
+            Swal.fire('Pedido enviado con exito', '', 'success')
+        } else if (result.isDenied) {
+            // eliminar_productos();
         }
-    }  
+    })
 }
+
 export default class Pedido extends React.Component {
     render(){
         return(
@@ -237,7 +249,6 @@ export default class Pedido extends React.Component {
                 <div className={PIZZA.clase}>
                     <div className="pedido-mini-container">
                         <img className="pedido-imagen" src={pizza.img} alt=""/>
-                        <Link to="/pedido"><img onClick={()=>eliminar_producto(pizza.nombre, pizza.precio)} className="pedido-icono" src={add} alt=""/></Link>
                         <Link to="/pedido"><img onClick={()=>agregarle_sabores(pizza.nombre, pizza.precio)} className="pedido-icono" src={add} alt=""/></Link>
                     </div>
                     {PIZZA.sabores}
@@ -250,7 +261,6 @@ export default class Pedido extends React.Component {
                 <div className={BURGER.clase}>
                     <div className="pedido-mini-container">
                         <img className="pedido-imagen" src={burger.img} alt=""/>
-                        <Link to="pedido"><img onClick={()=>eliminar_producto(burger.nombre, burger.precio)} className="pedido-icono" src={add} alt=""/></Link>
                         <Link to="pedido"><img onClick={()=>agregarle_sabores(burger.nombre, burger.precio)} className="pedido-icono" src={add} alt=""/></Link>
                     </div>
                     {BURGER.sabores}
@@ -265,7 +275,7 @@ export default class Pedido extends React.Component {
                     <h1>Total: ${precio}</h1>
                 </div>
                 {listar_pedido} 
-                <Link className="boton" to="/pedido" onClick={()=>mostrar_pedido()}> <button className="boton-a" >Enviar pedido</button></Link>
+                {boton_final}
             
             </div>
         );

@@ -91,3 +91,17 @@
     border-radius: 15px 25px 15px 25px;
     padding: 5px 15px 5px 15px;
 }
+.listar_pedido{
+    opacity: 0.7;
+    background-color: cadetblue;
+}
+
+.listar_pedido-nombre{
+    /* margin-top: 10px; */
+    font-size: 15px;
+    text-align: center;
+    margin: 0px;
+    padding: 0px 0 10px 0;
+    display: flex;
+    justify-content: center;
+}
