@@ -1,6 +1,6 @@
 import React from 'react';
 import emailjs from 'emailjs-com';
-import './Styles/Contactanos.css';
+// import './Styles/Contactanos.css';
 import Swal from 'sweetalert2';
 
 // emailjs.send(serviceID, templateID, e.target, userID);

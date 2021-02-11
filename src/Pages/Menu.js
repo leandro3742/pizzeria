@@ -4,10 +4,12 @@ import './Styles/Menu.css';
 import left from '../Imagenes/iconos/left.png';
 import right from '../Imagenes/iconos/right.png';
 
+import { pizza, burger } from './datos';
+
 let carta1=
 <div className="carta">
     <span className="menu-titulo">Comida</span>
-    <span className="menu-texto">Chivito con fritas ... ... $250</span>
+    <span className="menu-texto">Pizza con muzza ... ... ${pizza.precio}</span>
     <span className="menu-texto">Chivito para dos ... ... $470</span>
     <span className="menu-texto">Chivito con fritas ... ... $250</span>
     <span className="menu-texto">Hamburguesa casera ... ... $250</span>

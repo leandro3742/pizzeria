@@ -1,20 +1,5 @@
-.titulo-contactanos{
-    text-decoration: underline blue;
-    font-size: 21px;
-    margin-top: 25px;
-    text-align: center;
-    font-family: 'PT Serif', serif;
-}
-.formulario{
-    border-radius: 5px;
-    margin-top: 10px;
-    border: 2px solid black;
-    font-family: 'PT Serif', serif;
-    width: 90%;
-    margin-left: 5%;
-    display: grid;
-    justify-content: center;
-}
+
+
 .etiquetas{
     text-align: center;
 }

@@ -221,24 +221,27 @@ export default class Pedido extends React.Component {
         this.state = {
             ocultar: false,
             boton: 'Ver pedido',
-            a : <div></div>,
-            listar_pedido : <div></div>
+            contactanos : <div></div>,
+            listar_pedido : <div></div>,
+            // lista_de_compras : <div></div>
         }
     }
+    elegir_comida = () => {
 
+    }
     guardar_info = () =>{
         mostrar_pedido();
         if(this.state.ocultar === true)
             this.setState({ 
                 boton : 'Ver pedido',
-                a : <div></div> ,
+                contactanos : <div></div> ,
                 listar_pedido: <div></div>,
                 ocultar: !this.state.ocultar
             });
         else
             this.setState({
                 boton : 'Ocultar pedido',
-                a : <Contactanos  pedido={pedido_para_mostrar} precio={precio}/>,
+                contactanos : <Contactanos pedido={pedido_para_mostrar} precio={precio}/>,
                 listar_pedido : listar_pedido,
                 ocultar: !this.state.ocultar
             });
@@ -284,7 +287,7 @@ export default class Pedido extends React.Component {
                 <div className="container-lista-pedido">
                     {this.state.listar_pedido}
                 </div>
-                {this.state.a}
+                {this.state.contactanos}
 
 
                 

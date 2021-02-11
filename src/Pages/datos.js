@@ -4,7 +4,7 @@ import img_burger from '../Imagenes/hamburguesa.jpg';
 let ingredientes_pizza = {
     nombres : [' Bacon ', ' Aceitunas ', ' Huevos ' , " Extra queso "],
     precio : [40, 50, 60, 70 ]
-}
+}   
 
 export const pizza = {
     nombre: 'Pizza',
