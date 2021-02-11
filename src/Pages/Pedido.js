@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import './Styles/Pedido.css';
 import Swal from 'sweetalert2';
 
+import Contactanos from '../Componentes/Contactanos';
+
 import { pizza, burger } from './datos';
 import add from '../Imagenes/iconos/add.png';
 import less from '../Imagenes/iconos/less.png';
@@ -36,7 +38,6 @@ let pedido = [];
 let pedido_con_ingredientes = [];
 let pedido_precio = [];
 
-let boton_final = <Link className="boton" to="/pedido" onClick={()=>mostrar_pedido()}> <button className="boton-a" >Ver pedido</button></Link>
 
 function agregar_al_precio(nombre, arreglo){
     let ya_esta = false;
@@ -179,7 +180,7 @@ function agregarle_sabores(comida, precio){
     
     producto.nombre = comida; //Agrego al array el producto y lo guardo
     console.log("AA"+producto.nombre);
-    // pedido[cantidad_de_productos] = producto;
+
     agregar_precio_producto(precio);
     switch (comida) {
         case "Pizza":
@@ -196,15 +197,11 @@ function agregarle_sabores(comida, precio){
 }
 
 let listar_pedido;
+let pedido_para_mostrar = [];
 
-function mostrar_pedido(){ 
-
-    boton_final = <Link className="boton" to="/pedido" onClick={()=>enviar_pedido()}> <button className="boton-a" >Finalizar pedido</button> </Link>
-
+function mostrar_pedido() {
     let a = 0;
     let i = 1;
-    let pedido_para_mostrar = [];
-
     while(i <= cantidad_de_productos){
         pedido_para_mostrar[a] = pedido[i]+" con: ";
         pedido_para_mostrar[a+1] = pedido_con_ingredientes[i];
@@ -218,28 +215,36 @@ function mostrar_pedido(){
 
 }
 
-function enviar_pedido(){
-    Swal.fire({
-        title: 'Confirmar compra',
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: `Si`,
-        denyButtonText: `No`,
-    }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-            // enivar mensaje aca
-            Swal.fire({
-                title: 'Pedido enviado con exito',
-                icon: 'success',
-            })
-        } else if (result.isDenied) {
-            // eliminar_productos();
-        }
-    })
-}
 
 export default class Pedido extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            ocultar: false,
+            boton: 'Ver pedido',
+            a : <div></div>,
+            listar_pedido : <div></div>
+        }
+    }
+
+    guardar_info = () =>{
+        mostrar_pedido();
+        if(this.state.ocultar === true)
+            this.setState({ 
+                boton : 'Ver pedido',
+                a : <div></div> ,
+                listar_pedido: <div></div>,
+                ocultar: !this.state.ocultar
+            });
+        else
+            this.setState({
+                boton : 'Ocultar pedido',
+                a : <Contactanos  pedido={pedido_para_mostrar}/>,
+                listar_pedido : listar_pedido,
+                ocultar: !this.state.ocultar
+            });
+    }
+
     render(){
         return(
             <div className="pedido">
@@ -272,9 +277,18 @@ export default class Pedido extends React.Component {
                 <div className="precio">
                     <h1>Total: ${precio}</h1>
                 </div>
-                {listar_pedido} 
-                {boton_final}
-            
+                
+                <div className="container-boton">
+                    <button  className="boton-a" onClick={this.guardar_info}>{this.state.boton}</button>
+                </div>
+                
+                <div className="container-lista-pedido">
+                    {this.state.listar_pedido}
+                </div>
+                {this.state.a}
+
+
+                
             </div>
         );
     }

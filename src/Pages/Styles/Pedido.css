@@ -91,15 +91,23 @@
     justify-content: center;
     text-decoration: none;
 }
+.container-boton{
+    display: flex;
+    justify-content: center;
+}
 .boton-a{
     background-color: burlywood;
     outline: none;
     border-radius: 15px 25px 15px 25px;
     padding: 5px 15px 5px 15px;
 }
+
+.container-lista-pedido{
+    margin-top: 10px;
+}
 .listar_pedido{
-    opacity: 0.7;
     background-color: cadetblue;
+    opacity: 0.7;
 }
 
 .listar_pedido-nombre{
