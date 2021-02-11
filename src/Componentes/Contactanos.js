@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 
 export default function ContactUs(props) {
   console.log('props:'+ props.pedido);
+  console.log('precio:' + props.precio);
   function sendEmail(e) {
     e.preventDefault();
     emailjs.sendForm('service_3hvrpn7', 'template_48gqdhi', e.target, 'user_aVcs1Bw08xidonpvb7rrl')
@@ -30,25 +31,11 @@ export default function ContactUs(props) {
   return (
     <div>
       
-      <form className="formulario" onSubmit={sendEmail}>
+      <form className="container-boton" onSubmit={sendEmail}>
         <input type="hidden" name="pedido" value={props.pedido}/>
+        <input type="hidden" name="precio" value={props.precio}/>
         
-        {/* <div className="container-form nombre">
-        <label className="etiquetas primera">Nombre</label>
-        <input className="cuadros" type="text" name="nombre_cliente" />
-        </div>
-        
-        <div className="container-form numero">
-          <label className="etiquetas">Numero de contacto</label>
-          <input className="cuadros" type="number" name="numero_cliente" />
-        </div>
-        
-        <div className="container-form descripcion">
-          <label className="etiquetas">Descripción</label>
-          <textarea className="descripcion" type="text" name="mensaje"  />
-        </div>
-         */}
-        <input className="submit" type="submit" value="Enviar consulta" />
+        <input className="boton-a" type="submit" value="Enviar pedido" />
       </form>
     </div>
   );

@@ -179,8 +179,7 @@ function agregar_precio_producto(precio_producto){
 function agregarle_sabores(comida, precio){
     
     producto.nombre = comida; //Agrego al array el producto y lo guardo
-    console.log("AA"+producto.nombre);
-
+    cantidad_de_ingredientes = 0;
     agregar_precio_producto(precio);
     switch (comida) {
         case "Pizza":
@@ -239,7 +238,7 @@ export default class Pedido extends React.Component {
         else
             this.setState({
                 boton : 'Ocultar pedido',
-                a : <Contactanos  pedido={pedido_para_mostrar}/>,
+                a : <Contactanos  pedido={pedido_para_mostrar} precio={precio}/>,
                 listar_pedido : listar_pedido,
                 ocultar: !this.state.ocultar
             });
