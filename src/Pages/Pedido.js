@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 
 import Contactanos from '../Componentes/Contactanos';
 
-import { pizza, burger } from './datos';
+import { pizza, burger, brownie } from './datos';
 import add from '../Imagenes/iconos/add.png';
 import less from '../Imagenes/iconos/less.png';
 
@@ -21,7 +21,8 @@ class NUEVO_PRODUCTO{
 
 const PIZZA = new NUEVO_PRODUCTO("pedido-container", <div></div>, <div></div>, <div></div>, <div></div>);
 const BURGER = new NUEVO_PRODUCTO("pedido-container", <div></div>, <div></div>, <div></div>, <div></div>);
-
+const BROWNIE = new NUEVO_PRODUCTO("pedido-container", <div></div>, <div></div>, <div></div>, <div></div>);
+ 
 let precio = 0;
 let cantidad_de_productos = 0;
 let cantidad_de_ingredientes = 0;
@@ -106,11 +107,14 @@ function cerrar_opciones(){
     cerrar_todo = <div></div>
 
     pedido[cantidad_de_productos]= producto.nombre;
-    pedido_con_ingredientes[cantidad_de_productos] = producto.ingredientes;
+
+    if(producto.ingredientes.lenght === 0)
+        pedido_con_ingredientes[cantidad_de_productos] = false;        
+    else
+        pedido_con_ingredientes[cantidad_de_productos] = producto.ingredientes;
    
     producto.nombre = '';
     producto.ingredientes = [];
-
 }
 
 function expandir_lista(comida){
@@ -164,7 +168,6 @@ function agregar(comida){
                     </div>
                 </div>
         break;
-        
     }
 }
 
@@ -202,10 +205,17 @@ function mostrar_pedido() {
     let a = 0;
     let i = 1;
     while(i <= cantidad_de_productos){
-        pedido_para_mostrar[a] = pedido[i]+" con: ";
-        pedido_para_mostrar[a+1] = pedido_con_ingredientes[i];
-        i++;
+        
+        if(pedido_con_ingredientes[i] != false){
+            pedido_para_mostrar[a] = '      1 '+ pedido[i]+" con: ";
+            pedido_para_mostrar[a+1] = pedido_con_ingredientes[i];
+        }
+        else
+            pedido_para_mostrar[a] ='   1 ' + pedido[i];
+        
         a = a+2;
+        i++;
+
     }
     listar_pedido = pedido_para_mostrar.map(nombre=>
         <div className="listar_pedido">
@@ -247,6 +257,22 @@ export default class Pedido extends React.Component {
             });
     }
 
+    opciones_sin_ingredientes(comida, precio_producto){
+        cantidad_de_productos++;
+
+        precio = precio+precio_producto;
+        pedido_precio[cantidad_de_productos] = precio_producto;
+
+        pedido[cantidad_de_productos]= comida;
+        pedido_con_ingredientes[cantidad_de_productos] = false;
+    
+        producto.nombre = '';
+        producto.ingredientes = [];
+
+        
+    }
+    
+
     render(){
         return(
             <div className="pedido">
@@ -275,6 +301,12 @@ export default class Pedido extends React.Component {
                     {cerrar_todo}
                 </div>              
                 
+                <div className={BROWNIE.clase}>
+                    <div className="pedido-mini-container">
+                        <img className="pedido-imagen" src={brownie.img} alt=""/>
+                        <Link to="pedido"><img onClick={()=>this.opciones_sin_ingredientes(brownie.nombre, brownie.precio)} className="pedido-icono" src={add} alt=""/></Link>
+                    </div>
+                </div>
 
                 <div className="precio">
                     <h1>Total: ${precio}</h1>

@@ -1,5 +1,6 @@
 import img_pizza from '../Imagenes/pizza.jpg';
 import img_burger from '../Imagenes/hamburguesa.jpg';
+import img_brownie from '../Imagenes/hamburguesa.jpg';
 
 let ingredientes_pizza = {
     nombres : [' Bacon ', ' Aceitunas ', ' Huevos ' , " Extra queso "],
@@ -24,5 +25,13 @@ export let burger = {
     precio: 200,
     ingredientes: ingredientes_burger
 }
+
+export let brownie = {
+    nombre: 'Brownie',
+    img: img_brownie,
+    precio: 150,
+    ingredientes: false
+}
+
 
 export const productos = [pizza, burger];
