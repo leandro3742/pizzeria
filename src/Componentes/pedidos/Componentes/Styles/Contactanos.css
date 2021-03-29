@@ -1,0 +1,20 @@
+.contenedor-boton{
+    display: flex;
+    justify-content: center;
+}
+    /* color: #C1B3B3; */
+
+.boton-a{
+    margin-top: 0px;
+    margin-bottom: 75px;
+    font-family: 'Akaya Telivigala', cursive;
+    font-size: 21px;
+    outline: none;
+    padding: 5px 15px 5px 15px;
+    border-radius: 25px 5px 25px 5px;
+    color: whitesmoke;
+    background: linear-gradient(to right, #FF0000  , #000000); 
+    /* background: linear-gradient(to top, #53C7E3 , #A1E3F3);  */
+    border-color: #A1E3F3;
+
+}

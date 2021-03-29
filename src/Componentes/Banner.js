@@ -72,7 +72,7 @@ export default class Banner extends React.Component {
             <div className="banner">
             
                 <img className="superponer madera" src={madera}/>
-                <div className="superponer arriba">
+                <div className="superponer up">
                     <img className="imagen" src={this.state.imagen} alt=""/>
                     
                     <div className="contenedores">

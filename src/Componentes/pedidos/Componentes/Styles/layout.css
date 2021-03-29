@@ -1,0 +1,21 @@
+body{
+    /* background-color: #A8ACAD; */
+    /* background: linear-gradient(to bottom, #F34F4F , #0000);  */
+    background: linear-gradient(to right, #000000, #FF0000); 
+    /* background: linear-gradient(to right, #000000 , #0000);  */
+
+    /* background: linear-gradient(to bottom, #53C7E3 , #0000);  */
+    /* background-image: url(../../Imagenes/fondo.JPG); */
+    background-attachment: fixed;
+}
+
+img.cover{
+    object-fit: cover;
+}
+span{
+    font-family: 'RocknRoll One', sans-serif;
+    color: white;
+}
+h4{
+    color: white;
+}

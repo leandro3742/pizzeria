@@ -1,0 +1,119 @@
+/*NECESARIO NO TOCAR*/
+
+.pedido-imagen.cover, .pedido-imagen-bebidas.cover{
+    object-fit: cover;
+}
+.pedido-imagen{
+    width: 150px;
+}
+.pedido-imagen-bebidas{
+    height: 150px;
+}
+.pedido-imagen-bebida{
+    /* height: 50px; */
+    width: 50px;
+}
+.icono{
+    margin-left: 10px;
+    width: 50px;
+    height: 50px;
+}
+
+/* FIN DE LO NECESARIO*/
+
+
+.pedido-mini-container{
+    /* margin-top: 50px;*/
+    /* padding-top: 50px; */
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+.arriba{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.precio{
+    margin-top: 5px;
+    margin-left: 65px;
+}
+.container_ingredientes{
+    margin-top: 15px;
+    background-color: rgba(0, 0, 0, .7);
+}
+.ingredientes_elegidos{
+    color: white;
+    display: flex;
+    margin-top: 2px;
+    justify-content: center;
+}
+.boton{
+    display: flex;
+    justify-content: center;
+}
+.no_mostrar{
+    opacity: 0;
+}
+.si_mostrar{
+    background: linear-gradient(to top, #53C7E3 , #A1E3F3); 
+    border-color: #A1E3F3;
+    outline: none;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding: 5px 10px 5px 10px;
+    border-radius: 15px 55px 15px 55px;
+}
+
+/* ACA VA MOSTRAR_PEDIDO */
+.preguntar_por_ingredientes_extras{
+    height: 60px;
+    background-color: rgba(0, 0, 0, .7);
+    color: white;
+    /* text-align: center; */
+
+}
+
+.elegir_si_no{
+    display: flex;
+    margin-left: 100px;
+    margin-right: 100px;
+    justify-content: space-between;
+}
+.si{
+    margin-top: 0;
+    color: green;
+}
+.no{
+    margin-top: 0;
+    color: red;
+}
+
+/* FIN MOSTRAR_PEDIDO */
+
+
+/* ACA VA EXPANDIR_INGREDIENTES*/
+
+.lista_ingredientes{
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.icono_chico{
+    margin-left: 5px;
+    width: 20px;
+    height: 20px;
+}
+
+.container_seguir_comprando{
+    display: flex;
+    justify-content: center;
+}
+.seguir_comprando{
+    outline: none;
+    padding: 5px 10px 5px 10px;
+    border-radius: 15px 55px 15px 55px;
+    margin-top: 25px;
+}
+/* FIN EXPANDIR_INGREDIENTES */

@@ -1,0 +1,14 @@
+.contenedor-bebida{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 35px;
+}
+.imagen-precio{
+    display: grid;
+    justify-content: center;
+}
+.precio-bebida{
+    display: flex;
+    justify-content: center;
+}
